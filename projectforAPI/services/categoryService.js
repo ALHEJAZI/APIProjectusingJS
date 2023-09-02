@@ -1,5 +1,6 @@
 const { default: slugify } = require('slugify');
 const Category = require('../models/category');
+// eslint-disable-next-line import/order
 const AsyncHandler = require('express-async-handler');
 const ApiError = require('../utils/apiError');
 
@@ -59,8 +60,8 @@ exports.deleteCategory = AsyncHandler(async (_req , _res , next)=>{
 });
 
 
-// @desc    Get Categories
-// @Route   GET api/v1/categories
+// @desc    create Categories
+// @Route   post api/v1/categories
 // @Access  Privte
 exports.createCategory = AsyncHandler ( async (_req , _res)=>{
     const name = _req.body.name;

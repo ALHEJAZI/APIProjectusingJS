@@ -1,10 +1,16 @@
 const express = require('express');
 const { getCategories , createCategory , getCategory , updateCategory , deleteCategory} = require('../services/categoryService');
-const {validationResult, param} = require('express-validator');
+// eslint-disable-next-line no-unused-vars
+
+const subCategoryRoute = require('./subCategoryRoute')
+
 const { getCategoryValidator, createCategoryValidator, updategetCategoryValidator, deleteCategoryValidator } = require('../utils/validators/categoryvalidator');
 
 
 const router = express.Router();
+
+
+router.use('/:categoryId/subcategories' , subCategoryRoute )
 
 router.route('/')
 .get(getCategories)
