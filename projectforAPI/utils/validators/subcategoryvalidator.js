@@ -20,9 +20,7 @@ exports.createsubCategoryValidator = [
 
     check('category')
     .notEmpty()
-    .withMessage("must be belong to category")
-    .isMongoId()
-    .withMessage("must be valid id for category"),
+    .withMessage("must be belong to category"),
 
     validator,
 ];

@@ -1,29 +1,30 @@
 const mongoose = require('mongoose');
 
 const subCategorySchema = new mongoose.Schema({
-
-    name :{
-        type : String,
-        trim : true,
-        unique : [ true , 'it is alredy exist' ],
-        minlength :[ 1 , "too short name"],
-        maxlength :[30 , "too long name "]
+    name: {
+        type: String,
+        trim: true,
+        minlength: [1, 'Too short name'],
+        maxlength: [30, 'Too long name']
     },
-    slug:{
-        type : String,
-        lowercase : true
+    slug: {
+        type: String,
+        lowercase: true
     },
-    category :{
-        type : mongoose.Schema.ObjectId ,
-        ref : 'Category',
-        required :[ true , 'must be belong to main category']
+    category: {
+        type: String,
+        ref: 'Category',
+        validate: {
+            validator: async function (value) {
+                const category = await mongoose.model('Category').findOne({ name: value });
+                return !!category;
+            },
+            message: 'Category does not exist'
+        },
+        required: [true, 'Must belong to main category']
     }
+}, { timestamps: true });
 
-} , 
-    
-{timestamps : true});
+subCategorySchema.index({ name: 1, category: 1 }, { unique: true, message: 'Subcategory name already exists within the same category' });
 
-
-module.exports = mongoose.model("subCategory" , subCategorySchema);
-
-
+module.exports = mongoose.model('SubCategory', subCategorySchema);

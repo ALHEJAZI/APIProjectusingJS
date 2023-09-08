@@ -39,7 +39,7 @@ const productSchema = new mongoose.Schema(
     images :[String],
 
     category:{
-        type : mongoose.Schema.ObjectId ,
+        type : String ,
         ref : 'Category',
         required :[ true , 'must be belong to main category']
     },
